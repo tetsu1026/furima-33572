@@ -21,13 +21,13 @@
 
 | Column           | Type       | Options           |
 | -----------------| ---------- | ----------------- |
-| item_name        | string     | null: false       |
-| item_explanation | text       | null: false       |
+| name             | string     | null: false       |
+| explanation      | text       | null: false       |
 | price            | integer    | null: false       |
 | category_id      | integer    | null: false       |
 | item_state_id    | integer    | null: false       |
 | delivery_fee_id  | integer    | null: false       |
-| delivery_area_id | integer    | null: false       |
+| prefecture_id    | integer    | null: false       |
 | delivery_days_id | integer    | null: false       |
 | user             | references | foreign_key:true  |
 
