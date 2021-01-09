@@ -24,6 +24,11 @@
 | item_name        | string     | null: false       |
 | item_explanation | text       | null: false       |
 | price            | integer    | null: false       |
+| category         | string     | null: false       |
+| item_state       | string     | null: false       |
+| delivery_fee     | string     | null: false       |
+| delivery_area    | string     | null: false       |
+| delivery_days    | date       | null: false       |
 | user             | references | foreign_key:true  |
 
 ### Association
