@@ -54,11 +54,12 @@ has_one :address
 
 | Column           | Type       | Options           |
 | -----------------| ---------- | ----------------- |
-| post_code        | integer    | null: false       |
+| post_code        | string     | null: false       |
+| prefecture       | string     | null: false       |
 | city             | string     | null: false       |
 | address          | string     | null: false       |
 | building_name    | string     |                   |
-| phone_number     | integer    | unique: true      |
+| phone_number     | string     | unique: true      |
 
 
 ### Association
