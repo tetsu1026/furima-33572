@@ -10,23 +10,6 @@ RSpec.describe User, type: :model do
       it 'nicknameとemail、passwordとpassword_confirmationとfirst_name_kanji、last_name_kanji、first_name_kana、birth_dayが存在すれば登録できる' do
         expect(@user).to be_valid
       end
-
-      it "passwordが半角英数混合の6文字以上で2回入力すれば登録できる" do
-        @user.password = "aaa111" 
-        @user.password_confirmation = "aaa111"
-        expect(@user).to be_valid
-      end
-      it "ユーザー本名は全角（漢字・ひらがな・カタカナ)で入力すれば登録できる" do
-        @user.last_name_kanji = "山田"
-        @user.first_name_kanji = "たろう"
-        expect(@user).to be_valid
-      end
-
-      it "ユーザー本名フリガナは、全角（カタカナ）での入力でないと登録できない" do
-        @user.last_name_kana = "ヤマダ"
-        @user.first_name_kana = "タロウ"
-        expect(@user).to be_valid
-      end
     end
 
     context '新規登録がうまくいかないとき' do
@@ -43,8 +26,6 @@ RSpec.describe User, type: :model do
       it "同じemailが存在すると登録ができない" do
         @user.save
         another_user = FactoryBot.build(:user, email: @user.email)
-        #user = FactoryBot.create(:user, email: "test.user@email")
-        #another_user = FactoryBot.build(:user, email: "test.user@email")
         another_user.valid?
         expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
@@ -87,7 +68,6 @@ RSpec.describe User, type: :model do
       end
 
       it "パスワードは、確認用を含めて2回入力しないと登録できない" do
-        @user.password
         @user.password_confirmation = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
@@ -130,11 +110,6 @@ RSpec.describe User, type: :model do
         @user.first_name_kana = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("First name kana can't be blank")
-      end
-      it "ユーザー本名のフリガナは、苗字が空だと登録できない" do
-        @user.last_name_kana = ""
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Last name kana can't be blank")
       end
       it "ユーザー本名の名前はフリガナは、全角（カタカナ）での入力でないと登録できない" do
         @user.first_name_kana = "ﾀﾛｳ"
