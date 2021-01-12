@@ -8,12 +8,12 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    @item.save
+    @item = Item.create(item_params)
   end
 
   private
-    def item_params
-      params.require(:item).permit(:name, :explanation, :price, :image)
-    end
+
+  def item_params
+    params.require(:item).permit(:name, :explanation, :price, :image).merge(user_id: current_user.id)
+  end
 end
