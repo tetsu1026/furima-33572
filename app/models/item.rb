@@ -10,13 +10,13 @@ class Item < ApplicationRecord
     has_one :order
     has_one_attached :image
 
-    with_options presence: true do  
-      validates :name
-      validates :explanation
-      validates :image
-    end
+      
+    validates :image, presence: true
+    validates :name, presence: true, length: {maximum:40}
 
-    validates :price, presence: true, format: { with: /\A[0-9]+\z/, message: '半角数字を使用してください'}
+    validates :explanation, presence: true, length: {maximum:1000}
+
+    validates :price, presence: true, format: { with: /\A[0-9]+\z/}, numericality: {greater_than: 299,less_than: 10000000}
 
     with_options numericality: { other_than: 1, message: 'Select'} do 
       validates :category_id
