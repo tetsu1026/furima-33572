@@ -26,5 +26,3 @@ end
   has_many :orders
 
 end
-
-
