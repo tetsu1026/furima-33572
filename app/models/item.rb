@@ -10,7 +10,15 @@ class Item < ApplicationRecord
     has_one :order
     has_one_attached :image
 
-    with_options numericality: { other_than: 1 } do 
+    with_options presence: true do  
+      validates :name
+      validates :explanation
+      validates :image
+    end
+
+    validates :price, presence: true, format: { with: /\A[0-9]+\z/, message: '半角数字を使用してください'}
+
+    with_options numericality: { other_than: 1, message: 'Select'} do 
       validates :category_id
       validates :item_state_id
       validates :delivery_fee_id
