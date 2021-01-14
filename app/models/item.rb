@@ -22,6 +22,6 @@ class Item < ApplicationRecord
       validates :item_state_id
       validates :delivery_fee_id
       validates :prefecture_id
-      validates :delivery_days_id
+      validates :delivery_day_id
     end
 end
