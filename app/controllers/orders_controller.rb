@@ -1,13 +1,15 @@
 class OrdersController < ApplicationController
+  before_action :set_order, only: [:index, :create]
+  before_action :authenticate_user!, only: :index
+  before_action :move_to_index, only: :index
+
   
   def index
-    @order = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
 
 
   def create
-    @order = Item.find(params[:item_id])
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
        pay_item
@@ -32,6 +34,19 @@ class OrdersController < ApplicationController
           card: order_params[:token],
           currency: 'jpy'
         )
+  end
+
+  def set_order
+    @order = Item.find(params[:item_id])
+  end
+
+  def move_to_index
+    if user_signed_in? && current_user.id == @order.user_id
+       redirect_to root_path
+    end
+    if @order.order.present?
+      redirect_to root_path
+    end
   end
 
 end
