@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show, :update, :destroy]
-  before_action :authenticate_user!, only: :new
+  before_action :authenticate_user!, only: [:new, :edit]
   before_action :move_to_index, only: [:edit, :destroy]
 
   def index
@@ -56,8 +56,11 @@ class ItemsController < ApplicationController
     unless user_signed_in? && current_user.id == @item.user_id
       redirect_to root_path
     end
-    if @item.order.present? && @item.id == @item.user_id
-      redirect_to root_path
+    if @item.id == @item.user_id
+       redirect_to root_path and return
+    end
+    if @item.order.present?
+       redirect_to root_path
     end
   end 
 end
