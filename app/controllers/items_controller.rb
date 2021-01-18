@@ -56,7 +56,7 @@ class ItemsController < ApplicationController
     unless user_signed_in? && current_user.id == @item.user_id
       redirect_to root_path
     end
-    if @item.order.present?
+    if @item.order.present? && @item.id == @item.user_id
       redirect_to root_path
     end
   end 
